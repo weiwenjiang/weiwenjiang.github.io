@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="x769ihcPpzMLLAP03TIykIjylrYsAghgJfwpvP8LZ14" />
+  <meta name="msvalidate.01" content="ECCB0341CC24C59E0D3F85526AB31105" />
+  <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <!-- 
+  <title>Design NN on ZCU102 (2) — Slide Window in HLS | Weiwen Jiang | Home Page</title>
+ -->
+  <title>Weiwen Jiang | Home Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" href="./css/application.css">-->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/application.css">
+  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		tex2jax: {
+		  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+		  processEscapes: true
+		}
+	  });
+  </script>  
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="/js/application.js"></script>
+  <!--<script src="./js/application.js"></script>-->
+</head>
+
+<body style="background: url(/css/images/bg.png) 0 0 repeat; ">
+  <header id="header" role="banner" class="site-header" style="height:138px">
+      <nav class="brandbar theme-bb-blue container-fluid">
+        <ul class="row">
+          <li class="dept-nd col-lg-6"><a href="https://www.nd.edu/">University of Notre Dame</a></li>
+          <li class="dept dept-current col-lg-6">
+          <a href="http://engineering.nd.edu/" title="College of Engineering" target="_blank">COLLEGE of ENGINEERING</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="titlebar theme-tb-gold container-fluid">
+        <div class="row">
+          <div class="col">
+            <h1 class="site-title"><a href="/" accesskey="H">Weiwen Jiang's Personal Website</a></h1>
+          </div>
+          <div style="float:right; margin-top:30px; margin-right:70px;">
+            <form method="get" action="https://google.com/search" role="search">
+              <input type="search" name="q" placeholder="Search">
+              <button type="submit" style="float:right;"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+  </header>
+    
+  <div id="container" style="background: url(/css/images/bg.png) 0 0 repeat; ">
+    <div id="wrap" style="background: url(/css/images/bg.png) 0 0 repeat; ">
+      <div style="height: 60px; min-width: 1200px;" >
+<div  id="hearder" style=" border-bottom: 2px solid #dcb439;  ">
+  
+
+
+  <div id="header-outer" class="outer" style=" width:1000px; ">
+    <div id="header-inner" class="inner" style="margin-top: 0px;">
+      <nav id="main-nav" >
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+            <a class="main-nav-link" href="/" style="color: #000;">Home</a>
+        
+            <a class="main-nav-link" href="/categories/paper" style="color: #000;">Publication</a>
+        
+            <a class="main-nav-link" href="/categories/research" style="color: #000;">Research</a>
+        
+            <a class="main-nav-link" href="/categories/blog" style="color: #000;">Blog</a>
+        
+            <a class="main-nav-link" href="/categories/bio" style="color: #000;">Bio</a>
+        
+      </nav>                  
+	  <!--<div style="float:right">
+        <img src="/css/images/pitt_logo2.png" alt="pitt_log" height="48px" style="margin-top: 5px;">
+	  </div>-->
+    </div>
+  </div>     
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+      <div class="outer" style="clear:both; width:1000px; min-height: 500px; margin-top:10px; padding-top:20px; padding-left:0px; padding-right:0px; padding-bottom: 30px; background: url(/css/images/bg.png) 0 0 repeat; ">
+        <div>
+    <article id="post-blog_18-07-14-Window" class="article article-type-post" itemscope itemprop="blogPost">      
+      <div class="article-inner" style="margin-top: -10px">
+        
+        
+          <b><header class="article-header" style="font-size:24pt;">
+            
+      
+      Design NN on ZCU102 (2) — Slide Window in HLS    
+  
+
+          </header></b>
+        
+        <div class="article-entry" itemprop="articleBody">
+          
+            <p>The first thing to implement a CNN layer on an FPGA is to efficiently get the operation window from the input feature map (IFM). The approach called “slide window” is commonly used to catch the window from an IFM. In this blog, I’ll first introduce the basic idea of sliding window. Then, I’ll discuss the implementation of slide window considering both stride  and padding. Some details can be learnt from <a href="https://www.youtube.com/watch?v=38lj0VQci7E" target="_blank" rel="external">VIVADO HLS 2D Convolution on hardware</a>, and the implementation is modified from <a href="https://github.com/pp-Innovate/FPGA-ZynqNet" target="_blank" rel="external">FPGA-ZynqNet</a>.</p>
+<h3 id="Basic-Idea"><a href="#Basic-Idea" class="headerlink" title="Basic Idea"></a>Basic Idea</h3><p>First of all, the basic idea of sliding window is listed as follows.</p>
+<ul>
+<li>It maintains a 2D array to represent a currently target window.</li>
+<li>Assume the width of a window is W. It mantains W-1 line buffers.</li>
+<li>In each iteration, an element streams to the “slide window” core (function), which will be the most right-bottom window in that window.</li>
+<li>In each iteration, we move a column in the window from right to left for one step.</li>
+<li>For the last column, the elements are obtained from the line buffers and the new streaming element.</li>
+<li>Finally, it update line buffers by moving the element from the currently considering column of Line Buffer X to the corresponding position in Line Buffer X-1. And the new element is store in the last line buffer.</li>
+</ul>
+<h3 id="Slide-Window-core-function"><a href="#Slide-Window-core-function" class="headerlink" title="Slide Window core function"></a>Slide Window core function</h3><p>In the following example, we consider the kernel size of 5 by 5, which is widely employed in CNNs. For other sizes, it can be easily implemented by modify the number of line buffers, and some parameters.</p>
+<p>The inputs of slide window contains: (1) a newly streaming data; (2) a historic and updating window; (3) the currently considering column, (4) line buffers. The detailed codes are listed as follows.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">// Written by Weiwen Jiang: jiang.wwen@pitt.edu</div><div class="line">void window_generator_5_5(</div><div class="line">		FPGA_DATA d_in,</div><div class="line">		FPGA_DATA win_out[kernel_size],</div><div class="line">		int column,</div><div class="line">		FPGA_DATA linebuf1[ifm_row+win_pad_size+win_pad_size],</div><div class="line">		FPGA_DATA linebuf2[ifm_row+win_pad_size+win_pad_size],</div><div class="line">		FPGA_DATA linebuf3[ifm_row+win_pad_size+win_pad_size],</div><div class="line">		FPGA_DATA linebuf4[ifm_row+win_pad_size+win_pad_size],</div><div class="line">		FPGA_DATA temp[kernel_row]</div><div class="line">	)&#123;</div><div class="line">	temp[0] = d_in;</div><div class="line">	temp[1] = linebuf1[column];</div><div class="line">	temp[2] = linebuf2[column];</div><div class="line">	temp[3] = linebuf3[column];</div><div class="line">	temp[4] = linebuf4[column];</div><div class="line"></div><div class="line">	for(int i=0;i&lt;kernel_row-1;i++)&#123;</div><div class="line">		for(int j=i;j&lt;kernel_size;j+=kernel_row)&#123;</div><div class="line">			win_out[j] = win_out[j+1];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	int i=1;</div><div class="line">	for(int j=kernel_row-1;j&lt;kernel_size;j+=kernel_row)&#123;</div><div class="line">		win_out[j] = temp[kernel_row-i];</div><div class="line">		i++;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	linebuf1[column] = temp[0];</div><div class="line">	linebuf2[column] = temp[1];</div><div class="line">	linebuf3[column] = temp[2];</div><div class="line">	linebuf4[column] = temp[3];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Stride-and-Paddings"><a href="#Stride-and-Paddings" class="headerlink" title="Stride and Paddings"></a>Stride and Paddings</h3><p>In many applications, the window should be slided more than 1 step at each time. In addition, for the border, it may require us to add some additional paddings (e.g., 0). These two requriements can be realized on top of “window_generator_5_5”.<br>In the following, I listed the code considers both stride and paddings. Meanwhile, the code can be the test bench to test wheather we can obtain the correct results.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">// Written by Weiwen Jiang: jiang.wwen@pitt.edu</div><div class="line">int main()&#123;</div><div class="line">	int dim=6;</div><div class="line"></div><div class="line">	int A[dim*dim];</div><div class="line">	for(int i=0;i&lt;dim;i++)&#123;</div><div class="line">		for(int j=0;j&lt;dim;j++)&#123;</div><div class="line">			A[i*dim+j] = 10+j+i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">    cout&lt;&lt;&quot;Inputs&quot;&lt;&lt;endl;</div><div class="line">	for(int i=0;i&lt;dim;i++)&#123;</div><div class="line">		for(int j=0;j&lt;dim;j++)&#123;</div><div class="line">			cout&lt;&lt;A[i*dim+j]&lt;&lt;&quot; &quot;;</div><div class="line">		&#125;</div><div class="line">		cout&lt;&lt;endl;</div><div class="line">	&#125;</div><div class="line">    cout&lt;&lt;endl;</div><div class="line"></div><div class="line">	int i_step=0,j_step=0;</div><div class="line">	FPGA_DATA window[kernel_size];</div><div class="line">	int src_buf_addr=0;</div><div class="line">	FPGA_DATA linebuf1[ifm_row+win_pad_size+win_pad_size];</div><div class="line">	FPGA_DATA linebuf2[ifm_row+win_pad_size+win_pad_size];</div><div class="line">	FPGA_DATA linebuf3[ifm_row+win_pad_size+win_pad_size];</div><div class="line">	FPGA_DATA linebuf4[ifm_row+win_pad_size+win_pad_size];</div><div class="line">	FPGA_DATA Line5[kernel_row]=&#123;0&#125;;</div><div class="line"></div><div class="line">	memset(linebuf1,0,(ifm_row+win_pad_size+win_pad_size)*sizeof(FPGA_DATA));</div><div class="line">	memset(linebuf2,0,(ifm_row+win_pad_size+win_pad_size)*sizeof(FPGA_DATA));</div><div class="line">	memset(linebuf3,0,(ifm_row+win_pad_size+win_pad_size)*sizeof(FPGA_DATA));</div><div class="line">	memset(linebuf4,0,(ifm_row+win_pad_size+win_pad_size)*sizeof(FPGA_DATA));</div><div class="line"></div><div class="line"></div><div class="line">	for(int i=0-win_pad_size;i&lt;dim+win_pad_size;i++)&#123;</div><div class="line">		for(int j=0-win_pad_size;j&lt;dim+win_pad_size;j++)&#123;</div><div class="line">			bool border = (i &lt; 0 || i &gt;=dim || j &lt; 0 || j &gt;= dim);</div><div class="line">			window_generator_5_5(border?(FPGA_DATA)0:A[src_buf_addr], window, j+win_pad_size, linebuf1, linebuf2,linebuf3,linebuf4,Line5);</div><div class="line">			if(!border)</div><div class="line">				src_buf_addr++;</div><div class="line">			if(j_step == win_stride)</div><div class="line">				j_step = 0;</div><div class="line">			if(i_step == win_stride)</div><div class="line">				i_step = 0;</div><div class="line">			bool valid = (j &gt;= kernel_row-1-win_pad_size) &amp;&amp; (i &gt;= kernel_row-1-win_pad_size) &amp;&amp; !j_step &amp;&amp; !i_step;</div><div class="line">			if(valid)&#123;</div><div class="line">				cout&lt;&lt;&quot;Iteration &quot;&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;endl;</div><div class="line">				for(int k=0;k&lt;kernel_size;k++)&#123;</div><div class="line">					cout&lt;&lt;window[k]&lt;&lt;&quot; &quot;;</div><div class="line">					if((k+1)%kernel_row==0)&#123;</div><div class="line">						cout&lt;&lt;endl;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				cout&lt;&lt;&quot;====================&quot;&lt;&lt;endl;</div><div class="line">				cout&lt;&lt;endl;</div><div class="line">			&#125;</div><div class="line">			if(j&gt;=kernel_row-1-win_pad_size)&#123;</div><div class="line">				j_step++;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		j_step = 0;</div><div class="line">		if(i&gt;=kernel_row-1-win_pad_size)</div><div class="line">			i_step++;</div><div class="line">	&#125;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Results-for-parameters-kenerl-5-5-IFM-6-6-stride-2-padding-2"><a href="#Results-for-parameters-kenerl-5-5-IFM-6-6-stride-2-padding-2" class="headerlink" title="Results for parameters (kenerl: 5*5; IFM: 6*6; stride: 2; padding 2)"></a>Results for parameters (kenerl: 5*5; IFM: 6*6; stride: 2; padding 2)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">Inputs</div><div class="line">10 11 12 13 14 15 </div><div class="line">11 12 13 14 15 16 </div><div class="line">12 13 14 15 16 17 </div><div class="line">13 14 15 16 17 18 </div><div class="line">14 15 16 17 18 19 </div><div class="line">15 16 17 18 19 20 </div><div class="line"></div><div class="line">Iteration 2 2</div><div class="line">0 0 0 0 0 </div><div class="line">0 0 0 0 0 </div><div class="line">0 0 10 11 12 </div><div class="line">0 0 11 12 13 </div><div class="line">0 0 12 13 14 </div><div class="line">====================</div><div class="line"></div><div class="line">Iteration 2 4</div><div class="line">0 0 0 0 0 </div><div class="line">0 0 0 0 0 </div><div class="line">10 11 12 13 14 </div><div class="line">11 12 13 14 15 </div><div class="line">12 13 14 15 16 </div><div class="line">====================</div><div class="line"></div><div class="line">Iteration 2 6</div><div class="line">0 0 0 0 0 </div><div class="line">0 0 0 0 0 </div><div class="line">12 13 14 15 0 </div><div class="line">13 14 15 16 0 </div><div class="line">14 15 16 17 0 </div><div class="line">====================</div><div class="line"></div><div class="line">Iteration 4 2</div><div class="line">0 0 10 11 12 </div><div class="line">0 0 11 12 13 </div><div class="line">0 0 12 13 14 </div><div class="line">0 0 13 14 15 </div><div class="line">0 0 14 15 16 </div><div class="line">====================</div><div class="line"></div><div class="line">Iteration 4 4</div><div class="line">10 11 12 13 14 </div><div class="line">11 12 13 14 15 </div><div class="line">12 13 14 15 16 </div><div class="line">13 14 15 16 17 </div><div class="line">14 15 16 17 18 </div><div class="line">====================</div><div class="line"></div><div class="line">Iteration 4 6</div><div class="line">12 13 14 15 0 </div><div class="line">13 14 15 16 0 </div><div class="line">14 15 16 17 0 </div><div class="line">15 16 17 18 0 </div><div class="line">16 17 18 19 0 </div><div class="line">====================</div><div class="line"></div><div class="line">Iteration 6 2</div><div class="line">0 0 12 13 14 </div><div class="line">0 0 13 14 15 </div><div class="line">0 0 14 15 16 </div><div class="line">0 0 15 16 17 </div><div class="line">0 0 0 0 0 </div><div class="line">====================</div><div class="line"></div><div class="line">Iteration 6 4</div><div class="line">12 13 14 15 16 </div><div class="line">13 14 15 16 17 </div><div class="line">14 15 16 17 18 </div><div class="line">15 16 17 18 19 </div><div class="line">0 0 0 0 0 </div><div class="line">====================</div><div class="line"></div><div class="line">Iteration 6 6</div><div class="line">14 15 16 17 0 </div><div class="line">15 16 17 18 0 </div><div class="line">16 17 18 19 0 </div><div class="line">17 18 19 20 0 </div><div class="line">0 0 0 0 0 </div><div class="line">====================</div></pre></td></tr></table></figure>
+<p><br></p>
+<p><div align="right"><br>July 14, 2018<br><b>Weiwen Jiang</b><br><a href="mailto:jiang.wwen@pitt.edu" target="_blank" rel="external">jiang.wwen@pitt.edu</a><br>At UPITT<br></div><br><br></p>
+
+          
+        </div>
+        <footer class="article-footer">
+          <a data-url="http://www.pitt.edu/2018/07/14/blog_18-07-14-Window/" data-id="cjrkqdkyk000e9surzdzkkbhn" class="article-share-link">Share</a>
+          
+          
+        </footer>
+      </div>
+      <!-- 
+        
+<nav id="article-nav">
+  
+    <a href="/2018/07/19/blog_2018-07-19-Analysis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Nieuwer</strong>
+      <div class="article-nav-title">
+        
+          Usage Analysis NN on ZCU102 (1) --- Memory Usage
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/13/blog_18-07-13/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ouder</strong>
+      <div class="article-nav-title">Design of &#34;Lenet&#34; on ZCU102 (1) —  HLS Implementation</div>
+    </a>
+  
+</nav>
+
+       -->
+    </article>
+
+           
+
+
+
+</div>        
+      
+      <div>
+
+        <div>
+        <br /><a href='https://clustrmaps.com/site/1a9dt'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=a1b7dd&w=200&t=tt&d=y7uhNSQnn7BwOiSgdjrJlsl50phjgSmRvL7A-puzXmA&co=f1f1f1&ct=a1b7dd' style="margin-top:20px;" /></a><br /></div>
+      </div>
+
+      </div> 
+
+      <!--<footer id="footer" style="background: #A9A9A9; color: black; min-width:1200px;">
+  
+  <div class="outer" style="color:#000">
+    <div id="footer-info" class="inner">	  	  	  
+	  <div style="float:left">
+	  Total pageviews: <a href="http://www.amazingcounters.com"><img border="0" src="http://cc.amazingcounters.com/counter.php?i=3223307&c=9670234" alt="AmazingCounters.com"></a><br />
+      Last modified: Feb. 2019. <br />
+      &copy; 2019 Weiwen Jiang<br>	  
+	  </div>
+	  <div style="float:right"><a href="https://clustrmaps.com/site/1a9dt" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=a1b7dd&w=a&t=tt&d=y7uhNSQnn7BwOiSgdjrJlsl50phjgSmRvL7A-puzXmA&co=f1f1f1&ct=a1b7dd" /></a><br /></div>
+    </div>	
+  </div>
+</footer>-->
+
+
+  
+
+
+<div class="wrapper container-fluid" style="clear:both">
+      <div class="row">
+      <footer id="footer" class="site-footer col-12" role="contentinfo" style="margin-bottom: 2em; padding-left: 2em; padding-right: 2em; padding-bottom: 2em;">
+          <div class="footer-inner">
+            <div class="vcard">
+              <p class="copyright fn org">
+                <a href="https://www.nd.edu/copyright/">Copyright</a> &copy; 2019
+                <a href="https://www.nd.edu/" class="org">University of Notre Dame</a>
+              </p>
+              <p class="contact-info url adr">
+                <a href="/" class="site-link url fn">Weiwen Jiang's Personal Website</a>
+                <span class="address"><span class="street-address">254 Fitzpatrick Hall of Engineering</span>, <span class="locality">Notre Dame</span>, <span class="region" title="Indiana">IN</span> <span class="postal-code">46556</span></span>
+                <span class="tel phone"><span class="type">Phone</span> 412-427-0695</span>
+                <span class="email"><a href="mailto:email@nd.edu">wjiang2@nd.edu</a></span>
+              </p>
+              <a href="https://www.nd.edu/" class="ndmark"><img src="https://static.nd.edu/images/marks/blue/ndmark300.png" alt="University of Notre Dame"></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+
+
+    </div> 
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link" style="color:white">Home</a>
+  
+    <a href="/categories/paper" class="mobile-nav-link" style="color:white">Publication</a>
+  
+    <a href="/categories/research" class="mobile-nav-link" style="color:white">Research</a>
+  
+    <a href="/categories/blog" class="mobile-nav-link" style="color:white">Blog</a>
+  
+    <a href="/categories/bio" class="mobile-nav-link" style="color:white">Bio</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+    
+   
+
+  </div>  
+
+  
+</body>
+</html>
