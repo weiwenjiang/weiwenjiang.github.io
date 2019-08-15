@@ -8832,7 +8832,9 @@ nav ul {
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/NotreDame\/nd_bootstrap-master\/weiwen\/assets\/scss\/_nd_theme\.scss}line{font-family:\0000375}}
   .dept-current a {
     width: 276px;
-    background: url(/css/images/coe_graphic.png) no-repeat right; }
+    background: url(https://static.nd.edu/images/brandbar/dept-engr-white@2x.png); 
+	background-size: 276px 50px;
+	}
 
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/NotreDame\/nd_bootstrap-master\/weiwen\/assets\/scss\/_nd_theme\.scss}line{font-family:\0000377}}
   .dept-nd a,
@@ -8853,7 +8855,8 @@ nav ul {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/NotreDame\/nd_bootstrap-master\/weiwen\/assets\/scss\/_nd_theme\.scss}line{font-family:\0000389}}
   .dept-current a {
-    background: url(/css/images/coe_graphic.png) no-repeat right; } }
+    background: url(https://static.nd.edu/images/brandbar/dept-engr-white@2x.png); 
+	background-size: 276px 50px;} }
 /* Site specific styles here */
 /*************************************************************************************
  * Print Styles
