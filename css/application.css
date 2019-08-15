@@ -8846,14 +8846,14 @@ nav ul {
     border-bottom: 2px solid #bd8a00; } }
 /* Hi-res
    ----------------------------------------------------*/
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+/*@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/NotreDame\/nd_bootstrap-master\/weiwen\/assets\/scss\/_nd_theme\.scss}line{font-family:\0000388}}
   .dept-nd a {
     background-image: url(https://static.nd.edu/images/brandbar/dept-nd-white@2x.png); }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/NotreDame\/nd_bootstrap-master\/weiwen\/assets\/scss\/_nd_theme\.scss}line{font-family:\0000389}}
   .dept-current a {
-    background: url(/css/images/coe_graphic.png) no-repeat right; } }
+    background: url(/css/images/coe_graphic.png) no-repeat right; } }*/
 /* Site specific styles here */
 /*************************************************************************************
  * Print Styles
