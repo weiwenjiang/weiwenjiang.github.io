@@ -6,7 +6,7 @@
   <meta name="msvalidate.01" content="ECCB0341CC24C59E0D3F85526AB31105" />
   <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <!-- 
-  <title>Probabilistic Pipelines | Weiwen Jiang | Home Page</title>
+  <title>Pipeline Optimizations | Weiwen Jiang | Home Page</title>
  -->
   <title>Weiwen Jiang | Home Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -109,7 +109,7 @@
                     
                     
                 <li style="float: left">              
-                      <a href="/2013/09/01/research_selftimedPipelines/" style="color:darkred;">Self-timed Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
+                      <a href="/2013/09/01/research_selftimedPipelines/" style="color:darkred;">Self-timed System</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
           
@@ -125,19 +125,13 @@
           
                         
                     
-                    
-                <li style="float: left">              
-                      <a href="/2015/12/01/research_FixedPipeline/" style="color:darkred;">Fix-time Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
-                </li>
-            
-          
-                        
-                    
             
                 <li style="float: left">              
-                      <a href="/2016/01/01/research_probPipelines/" style="color:darkred; font-weight: bold;">Probabilistic Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
+                      <a href="/2016/01/01/research_probPipelines/" style="color:darkred; font-weight: bold;">Pipeline Optimizations</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>  
             
+          
+                        
           
                         
           
@@ -150,8 +144,6 @@
                       <a href="/2016/02/01/research_noc/" style="color:darkred;">Network-on-Chip</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
-          
-                        
           
                         
                     
@@ -190,14 +182,14 @@
                         
           
                         
-          
-                        
                     
                     
                 <li style="float: left">              
-                      <a href="/2017/06/01/research_nnFPGA/" style="color:darkred;">CNN on FPGAs</a> &nbsp&nbsp&nbsp&nbsp              
+                      <a href="/2017/06/01/research_nnFPGA/" style="color:darkred;">HW/NAS Co-Explore</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
+          
+                        
           
                         
           
@@ -313,7 +305,15 @@
 
 <p style="line-height:18pt; text-indent:2em; font-weight:bold;">The newest results on this project are presented in the TETC paper.</p>
 
+<p><br></p>
+<p style="line-height:18pt; text-indent:2em; font-weight:bold;">Fix-Time Pipeline:</p>
 
+
+<p style="line-height:18pt; text-indent:2em; text-align:justify;">In high-level synthesis for special-purpose architectures of real-time embedded systems, it becomes critical to design a system with the minimum cost while satisfying performance requirements, where cost may relate to price, area, energy, lifetime, etc. In many systems, such as Digital Signal Processing (DSP) systems, the same type of operations can be processed by heterogeneous functional units with different costs (e.g., the addition operation can be performed by different types of adders). Therefore, an important problem arises: how to assign a proper functional-unit type to each operation of a given application such that the total cost can be minimized while the timing constraint can be satisfied. </p>
+
+<p style="line-height:18pt; text-indent:2em; text-align:justify;"> There are two critical problems remained to be solved: (1) how to find optimal solution for applications with complicated structures, such as Directed Acyclic Graph (DAG) or cyclic Data Flow Graph (cyclic DFG), (2) how to guarantee the reliability of the resultant systems. This project targets on solving the above two problems. </p>
+
+<p style="line-height:18pt; text-indent:2em; font-weight:bold;">The newest results on this project are presented in the TPDS paper.</p>
  </div>
       <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">Members:</div>
       <div class="intro" style="font-size:14px; color:black; line-height: 20px; text-align:justify;">
@@ -432,6 +432,8 @@
       
                
       
+           
+              
                
       
                
@@ -440,8 +442,6 @@
       
            
               
-               
-      
                
       
                
@@ -722,6 +722,18 @@
           
                
                           
+                              
+                  <div style="list-style-position:outside; margin-top:10px">
+	3. <font ><b>Optimal Functional-Unit Assignment for Heterogeneous Systems under Timing Constraint</font></b><br />
+	
+		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, X. Chen, L. Yang, L. Zhou and Q. Zhuge <br /></div>
+		<div style="margin-left: 12pt; margin-top: 2pt;"><i>IEEE Transactions on Parallel and Distributed Systems (<b>TPDS</b>), 28(9), 2567-2580, 2017.</i></div>
+	
+	<!-- 
+		(<b></b>)
+	 -->
+</div>
+                  
               
           
                
@@ -736,7 +748,7 @@
                           
                               
                   <div style="list-style-position:outside; margin-top:10px">
-	3. <font ><b>Optimal Functional-Unit Assignment and Buffer Placement for Probabilistic Pipelines</font></b><br />
+	4. <font ><b>Optimal Functional-Unit Assignment and Buffer Placement for Probabilistic Pipelines</font></b><br />
 	
 		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang </b>, E. H.-M. Sha, Q. Zhuge and X. Chen <br /></div>
 		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. International Conference on Hardware/Software Co-design and System Synthesis (<b>CODES+ISSS</b>), Pittsburgh, PA, USA, Oct. 2016.</i></div>
@@ -806,13 +818,9 @@
           
                
                           
-              
-          
-               
-                          
                               
                   <div style="list-style-position:outside; margin-top:10px">
-	4. <font ><b>On the Design of High-Performance and Energy-Efficient Probabilistic Self-Timed Systems</font></b><br />
+	5. <font ><b>On the Design of High-Performance and Energy-Efficient Probabilistic Self-Timed Systems</font></b><br />
 	
 		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b">E. H.-M. Sha,  <b>W. Jiang</b>, Q. Zhuge, L. Yang and X. Chen <br /></div>
 		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. High Performance Computing and Communications (<b>HPCC</b>), NewYork, NY, USA, Aug. 2015.</i></div>
@@ -992,8 +1000,6 @@
       
                
       
-               
-      
       
           <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">
               
@@ -1102,8 +1108,6 @@
                       <li style="font-weight: bold; font-size:16px; color:darkred; height:40px;">
                           <a href="/2017/09/11/news_17_09_10_TETC/" style="color:darkred;">Top Panked Paper in ICCD 2017, Invited to Special Issue in IEEE Transactions on Emerging Topics in Computing (TETC)</a>
                       </li>
-                  
-              
                   
               
                   

@@ -6,7 +6,7 @@
   <meta name="msvalidate.01" content="ECCB0341CC24C59E0D3F85526AB31105" />
   <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <!-- 
-  <title>CNN on FPGAs | Weiwen Jiang | Home Page</title>
+  <title>HW/NAS Co-Explore | Weiwen Jiang | Home Page</title>
  -->
   <title>Weiwen Jiang | Home Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -109,7 +109,7 @@
                     
                     
                 <li style="float: left">              
-                      <a href="/2013/09/01/research_selftimedPipelines/" style="color:darkred;">Self-timed Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
+                      <a href="/2013/09/01/research_selftimedPipelines/" style="color:darkred;">Self-timed System</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
           
@@ -127,17 +127,11 @@
                     
                     
                 <li style="float: left">              
-                      <a href="/2015/12/01/research_FixedPipeline/" style="color:darkred;">Fix-time Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
+                      <a href="/2016/01/01/research_probPipelines/" style="color:darkred;">Pipeline Optimizations</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
           
                         
-                    
-                    
-                <li style="float: left">              
-                      <a href="/2016/01/01/research_probPipelines/" style="color:darkred;">Probabilistic Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
-                </li>
-            
           
                         
           
@@ -150,8 +144,6 @@
                       <a href="/2016/02/01/research_noc/" style="color:darkred;">Network-on-Chip</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
-          
-                        
           
                         
                     
@@ -190,14 +182,14 @@
                         
           
                         
-          
-                        
                     
             
                 <li style="float: left">              
-                      <a href="/2017/06/01/research_nnFPGA/" style="color:darkred; font-weight: bold;">CNN on FPGAs</a> &nbsp&nbsp&nbsp&nbsp              
+                      <a href="/2017/06/01/research_nnFPGA/" style="color:darkred; font-weight: bold;">HW/NAS Co-Explore</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>  
             
+          
+                        
           
                         
           
@@ -299,17 +291,15 @@
   
 </div>      
       <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">Introduction:</div>
-      <div style="clear:both"> <p style="line-height:18pt; text-indent:2em; text-align:justify;">Recently, the research interest in deep learning is growing rapidly, which promotes the emerging of a large number of new Neural Networks (NNs). We observe two trends in the development of NNs. (1) With the principle of improving accuracy, the structures of NNs becomes complicated. NNs will no longer to be a simple path-structure with few layers; instead, it evolves to have complicated data dependencies and to become deeper. (2) With the fast growing neural network markets, NNs are designed for more important embedded applications, such as automotive ADAS, Aerospace, and surveillance. These applications, however, commonly have strict requirements on both high timing performance and low energy consumptions, which is usually less considered in the design of NNs. On top of the above factors, when it comes to system-level implementations, the design of a system with the maximum energy efficiency while satisfying the timing constraints has become a more imminent challenge. </p>
+      <div style="clear:both"> <center><img src="/2017/06/01/research_nnFPGA/CoExplore.png" alt=""></center><br><center style="margin-top:-20px;margin-bottom:20px;"><i>Figure: Illustration of co-exploring neural architectures and hardware designs</i></center>
 
-<p style="line-height:18pt; text-indent:2em; text-align:justify;">FPGA, due to its energy efficiency, high performance, fast time-to-market and reconfigurable properties, has become one of the most popular implementation platforms for CNN inferences. Therefore, a large number of research efforts have made on the design of FPGA-based CNN accelerators. Existing FPGA-based CNN accelerators typically employ single-FPGA architectures. However, single-FPGA implementations may fail to meet the real-time constraints that required in many embedded applications, because CNNs are computation- and memory-intensive while a single FPGA has the restricted available resources. Multi-FPGA architecture is promising to boost the overall system performance by exploiting parallelism in CNNs. Specifically, one or multiple CNN layers can be implemented on an FPGA. A cluster of FPGAs can work together in a pipelined fashion.</p>
+<p style="line-height:18pt; text-indent:2em; text-align:justify;">As the increasing number of applications (ranging from mobile and connected home to security, surveillance and automotive) that combine edge computing and machine learning, implementing neural networks on edge devices become ever more important; however, with limited hardware resources on the edge devices and the restricted timing specification, neural networks that attain state-of-the-art accuracy will not fit. We establish that in order to achieve the highest accuracy and hardware efficiency on the edge, it is best to co-explore hardware design and neural architecture (the above figure), rather than taking state-of-the-art approaches that either explore neural architecture only assuming fixed hardware, or explore hardware design only assuming fixed neural architecture. The proposed co-exploration framework opens up the hardware design freedom, which can significantly push forward the Pareto frontiers between hardware efficiency and test accuracy, and we can obtain much better design trade-offs than the existing approaches. Our contribution can be seen as an analogy to the concept of hardware-software co-design, which has prevailed due to its superior.</p>
 
-<p style="line-height:18pt; text-indent:2em; text-align:justify;">The straightforward way to extend the single-FPGA design is to deploy CNNs on multiple homogeneous FPGAs. However, it diminishes the opportunities to optimize the overall performance and energy efficiency, since the computation requirement among CNN layers varies greatly. However, since the computation requirement among CNN layers varies greatly, the unbalanced workload causes FPGAs that implement faster pipeline stages to wait for slower ones, and in turn diminishes the overall performance and energy efficiency. By incorporating multiple heterogeneous FPGAs, the system can provide different options, which can generate more efficient designs. Nevertheless, how to coordinate heterogeneous FPGAs for timing-constrained CNNs has not been investigated. Unlike in homogeneous architectures that cost can be optimized by minimizing the number of FPGAs, the cost together with throughput of heterogeneous FPGAs is greatly affected by the partition of stages and the assignment of layers onto FPGAs. Thus, optimal algorithms to fine-tune these configurations are essential for heterogeneous FPGAs.</p>
-
-
-<p style="line-height:18pt; text-indent:2em; text-align:justify;"> In [1], we first present the motivation to employ multiple heterogeneous FPGAs for CNNs, and pose challenges in deploying CNNs onto heterogeneous FPGAs architectures. Second, we formally define the bi-criteria problems on minimizing the system cost and maximizing the throughput to optimally construct heterogeneous FPGA architecture for the given CNNs. And we have proved the NP-hardness of the optimization problem. Third, we systematically study how to deploy CNNs to heterogeneous FPGAs and present the accurate timing models. Based on these understandings, we devise mixed integer linear programming (MILP) formulations and dynamic programming based algorithms to obtain the optimal mappings.</p> </div>
+<p style="line-height:18pt; text-indent:2em; text-align:justify;">We aim to develop a full-stack tools to support co-exploration of neural architecture and hardware design from (1) optimization of fixed neural network on FPGAs; (2) FPGA-implementation aware NAS; (3) co-explore neural architectures on multiple FPGAs; (4) co-explore neural architecture on network-on-chip-based scalable hardware. </p>
+ </div>
       <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">Members:</div>
       <div class="intro" style="font-size:14px; color:black; line-height: 20px; text-align:justify;">
-          <p style="margin-left: 2em;">Weiwen Jiang<br /> Xinyi Zhang (Ph.D. candidate @ PITT)</p>
+          <p style="margin-left: 2em;">Weiwen Jiang<br /> Xinyi Zhang (Ph.D. candidate @ PITT) <br /> Qing Lu (Ph.D. candidate @ ND) <br /> Lei Yang (Postdoc @ GWU)</p>
       </div>      
 
       
@@ -374,8 +364,6 @@
       
            
               
-               
-      
                
       
                
@@ -847,10 +835,6 @@
                
                           
               
-          
-               
-                          
-              
               
           
       
@@ -882,8 +866,6 @@
       
            
               
-               
-      
                
       
                
@@ -1048,8 +1030,6 @@
                       <li style="font-weight: bold; font-size:16px; color:darkred; height:40px;">
                           <a href="/2019/05/01/news_19_06_01-DAC-BPN/" style="color:darkred;">DAC 2019 Nominated as Best Paper Candidate</a>
                       </li>
-                  
-              
                   
               
                   

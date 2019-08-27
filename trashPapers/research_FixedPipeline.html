@@ -6,7 +6,7 @@
   <meta name="msvalidate.01" content="ECCB0341CC24C59E0D3F85526AB31105" />
   <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <!-- 
-  <title>Self-timed System | Weiwen Jiang | Home Page</title>
+  <title>Fix-time Pipelines | Weiwen Jiang | Home Page</title>
  -->
   <title>Weiwen Jiang | Home Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -107,10 +107,10 @@
       <ul>        
                         
                     
-            
+                    
                 <li style="float: left">              
-                      <a href="/2013/09/01/research_selftimedPipelines/" style="color:darkred; font-weight: bold;">Self-timed System</a> &nbsp&nbsp&nbsp&nbsp              
-                </li>  
+                      <a href="/2013/09/01/research_selftimedPipelines/" style="color:darkred;">Self-timed System</a> &nbsp&nbsp&nbsp&nbsp              
+                </li>
             
           
                         
@@ -291,17 +291,14 @@
   
 </div>      
       <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">Introduction:</div>
-      <div style="clear:both"> <p style="line-height:18pt; text-indent:2em; font-weight:bold;">Self-Timed Pipelines:</p>
+      <div style="clear:both"> <p style="line-height:18pt; text-indent:2em; font-weight:bold;">Fix-time Pipelines:</p>
 
+<p style="line-height:18pt; text-indent:2em; text-align:justify;">In high-level synthesis for special-purpose architectures of real-time embedded systems, it becomes critical to design a system with the minimum cost while satisfying performance requirements, where cost may relate to price, area, energy, lifetime, etc. In many systems, such as Digital Signal Processing (DSP) systems, the same type of operations can be processed by heterogeneous functional units with different costs (e.g., the addition operation can be performed by different types of adders). Therefore, an important problem arises: how to assign a proper functional-unit type to each operation of a given application such that the total cost can be minimized while the timing constraint can be satisfied. </p>
 
-<p style="line-height:18pt; text-indent:2em; text-align:justify;">Pipelining has been a fundamental technique to achieve parallelism for different computer systems, ranging from micro-architecture level to system level optimizations. When pipelining technique is applied to more complicated systems with multiple heterogeneous processing elements operating at different frequencies, e.g. a heterogeneous pipelined MPSoC for multimedia applications, it is not realistic to employ a global clock for the synchronization between processing elements. It is even true when the whole system consists of multiple distributed computation nodes. For these systems, synchronization is commonly conducted in a self-timed (or asynchronous) fashion.</p>
-
-<p style="line-height:18pt; text-indent:2em; text-align:justify;"> Different from synchronous pipelines, self-timed pipelines utilize the handshaking protocol to coordinate the behaviors of different pipeline stages, which open up new challenges in the design phase. <b>First</b>, the careless configurations on self-timed pipelines may lead to the inconsistenct behavior with the application; in particular, it may result in deadlocks in some cases. Hence, the first problem is how to configure a self-timed pipeline, such that the resultant systems have the consistent behavior with the target application. <b>Second</b>, without a global clock, it is hard to capture the start and finish time for different stages. The problem is to find a suitable model to capture the behavior of a self-timed system. Third, <b>Third</b>, controlled by handshaking, the rate of generating output data may not be stable, making the throughput and performance analysis complicated. The problem is how to calculate the timing performance, and how to detect the performance bottleneck for a self-timed pipeline with the initial configuration. <b>Fourth</b>, with a global clock, only one buffer is required between two stages; on the contrary, controlled by handshaking, more buffers (memories) may be required to alleviate performance degradation caused by waiting for data/requests. In the consideration of limited memory capacities in processing elements (e.g., FPGAs) and the real-time requirements, a critical problem arises: how to minimize the number of buffers under the timing constraints.</p>
-
-<p style="line-height:18pt; text-indent:2em; text-align:justify;"> This project tackles the above challenges by modeling the self-timed pipeline using marked graph, and devise efficient algorihtms to obtain optimal or near-optimal solutions. </p> </div>
+<p style="line-height:18pt; text-indent:2em; text-align:justify;"> There are two critical problems remained to be solved: (1) how to find optimal solution for applications with complicated structures, such as Directed Acyclic Graph (DAG) or cyclic Data Flow Graph (cyclic DFG), (2) how to guarantee the reliability of the resultant systems. This project targets on solving the above two problems. </p> </div>
       <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">Members:</div>
       <div class="intro" style="font-size:14px; color:black; line-height: 20px; text-align:justify;">
-          <p style="margin-left: 2em;">Weiwen Jiang</p>
+          <p style="margin-left: 2em;">Weiwen Jiang<br /> Hailiang Dong (M.S. @ CQU)<br /> Lei Yang (Ph.D. candidate @ CQU and UCI)<br /></p>
       </div>      
 
       
@@ -356,8 +353,6 @@
       
                
       
-           
-              
                
       
                
@@ -408,14 +403,6 @@
       
                
       
-           
-              
-               
-      
-               
-      
-           
-              
                
       
                
@@ -432,12 +419,6 @@
       
                
       
-           
-              
-               
-      
-           
-              
                
       
                
@@ -452,8 +433,6 @@
       
                
       
-           
-              
                
       
                
@@ -462,397 +441,16 @@
       
                
       
-           
-              
                
       
                
       
+               
       
-          <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">Publications:</div>      
-          
-          
                
-                          
-              
-          
+      
                
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-                              
-                  <div style="list-style-position:outside; margin-top:10px">
-	1. <font ><b>On the Design of Time-Constrained and Buffer-Optimal Self-Timed Pipelines</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, Q. Zhuge, L. Yang, X. Chen, and J. Hu <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>IEEE Transactions on Transactions on Computer-Aided Design of Integrated Circuits and Systems (<b>TCAD</b>), Accepted, 2018.</i></div>
-	
-	<!-- 
-		(<b></b>)
-	 -->
-</div>
-                  
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-                              
-                  <div style="list-style-position:outside; margin-top:10px">
-	2. <font ><b>Efficient Assignment Algorithms to Minimize Operation Cost for Supply Chain Networks in Agile Manufacturing</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, Q. Zhuge and Lin Wu <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Computers & Industrial Engineering (<b>CAIE</b>), Apr. 2017.</i></div>
-	
-	<!-- 
-		(<b></b>)
-	 -->
-</div>
-                  
-              
-          
-               
-                          
-              
-          
-               
-                          
-                              
-                  <div style="list-style-position:outside; margin-top:10px">
-	3. <font ><b>Synthesizing Distributed Pipelining Systems with Timing Constraints via Optimal Functional Unit Assignment and Communication Selection</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, X. Chen, L. Wu and Q. Zhuge <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Journal of Computational Science (<b>JOCS</b>), Mar. 2017.</i></div>
-	
-	<!-- 
-		(<b></b>)
-	 -->
-</div>
-                  
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-                              
-                  <div style="list-style-position:outside; margin-top:10px">
-	4. <font ><b>Properties of Self-Timed Ring Architectures for Deadlock-Free and Consistent Configuration Reaching Maximum Throughput</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, Q. Zhuge, X. Chen, L. Yang, J. Yi and E. H.-M. Sha <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Journal of Signal Processing Systems (<b>JSPS</b>), 84(1), 123-137, Jul. 2016.</i></div>
-	
-	<!-- 
-		(<b></b>)
-	 -->
-</div>
-                  
-              
-          
-               
-                          
-                              
-                  <div style="list-style-position:outside; margin-top:10px">
-	5. <font ><b>Optimal Functional Assignment and Communication Selection under Timing Constraint for Self-Timed Pipelines</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, X. Chen, Q. Zhuge and L. Wu <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. International Conference on Embedded Software and Systems (<b>ICESS</b>), Chengdu, China, Aug. 2016.</i></div>
-	
-	<!-- 
-		(<b></b>)
-	 -->
-</div>
-                  
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-                              
-                  <div style="list-style-position:outside; margin-top:10px">
-	6. <font ><b>Prevent Deadlock and Remove Blocking for Self-Timed Systems</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b">E. H.-M. Sha,  <b>W. Jiang</b>, Q. Zhuge, X. Chen and L. Yang <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. International Conference on Algorithms and Architectures for Parallel Processing (<b>ICA3PP</b>), Zhangjiajie, China, Nov. 2015.</i></div>
-	
-	<!-- 
-		(<b></b>)
-	 -->
-</div>
-                  
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-              
-          
-               
-                          
-                              
-                  <div style="list-style-position:outside; margin-top:10px">
-	7. <font ><b>On self-timed ring for consistent mapping and maximum throughput</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, Q. Zhuge, J. Yi, L. Yang  and E. H.-M. Sha <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. Embedded and Real-Time Computing Systems and Applications (<b>RTCSA</b>), Chongqing, China, Aug. 2014.</i></div>
-	
-	<!-- 
-		(<b></b>)
-	 -->
-</div>
-                  
-              
-          
-               
-                          
-              
-              
-          
+      
       
 
       

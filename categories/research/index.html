@@ -6,7 +6,7 @@
   <meta name="msvalidate.01" content="ECCB0341CC24C59E0D3F85526AB31105" />
   <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <!-- 
-  <title>Catégorie: research | Weiwen Jiang | Home Page</title>
+  <title>Category: research | Weiwen Jiang | Home Page</title>
  -->
   <title>Weiwen Jiang | Home Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -115,6 +115,14 @@
 		    
                   	      
 			
+		    	
+		    
+                  	      
+			
+		    	
+		    
+                  	      
+			
 			    
       
     <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px">
@@ -126,7 +134,7 @@
                     
                     
                 <li style="float: left">              
-                      <a href="/2013/09/01/research_selftimedPipelines/" style="color:darkred;">Self-timed Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
+                      <a href="/2013/09/01/research_selftimedPipelines/" style="color:darkred;">Self-timed System</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
           
@@ -144,17 +152,11 @@
                     
                     
                 <li style="float: left">              
-                      <a href="/2015/12/01/research_FixedPipeline/" style="color:darkred;">Fix-time Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
+                      <a href="/2016/01/01/research_probPipelines/" style="color:darkred;">Pipeline Optimizations</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
           
                         
-                    
-            
-                <li style="float: left">              
-                      <a href="/2016/01/01/research_probPipelines/" style="color:darkred; font-weight: bold;">Probabilistic Pipelines</a> &nbsp&nbsp&nbsp&nbsp              
-                </li>  
-            
           
                         
           
@@ -167,8 +169,6 @@
                       <a href="/2016/02/01/research_noc/" style="color:darkred;">Network-on-Chip</a> &nbsp&nbsp&nbsp&nbsp              
                 </li>
             
-          
-                        
           
                         
                     
@@ -207,14 +207,14 @@
                         
           
                         
+                    
+            
+                <li style="float: left">              
+                      <a href="/2017/06/01/research_nnFPGA/" style="color:darkred; font-weight: bold;">HW/NAS Co-Explore</a> &nbsp&nbsp&nbsp&nbsp              
+                </li>  
+            
           
                         
-                    
-                    
-                <li style="float: left">              
-                      <a href="/2017/06/01/research_nnFPGA/" style="color:darkred;">CNN on FPGAs</a> &nbsp&nbsp&nbsp&nbsp              
-                </li>
-            
           
                         
           
@@ -316,29 +316,25 @@
   
 </div>
 	      	  <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">Introduction:</div>
-		      <div style="clear:both"> <p style="line-height:18pt; text-indent:2em; font-weight:bold;">Probabilistic Pipelines:</p>
+		      <div style="clear:both"> <center><img src="/2017/06/01/research_nnFPGA/CoExplore.png" alt=""></center><br><center style="margin-top:-20px;margin-bottom:20px;"><i>Figure: Illustration of co-exploring neural architectures and hardware designs</i></center>
 
-<p style="line-height:18pt; text-indent:2em; text-align:justify;">Pipelines are commonly used to achieve high performance by overlapping computations of stages, so tasks (or called nodes) in different stages can be executed in parallel. In the design of application-specific heterogenous pipelines, designers face two critical problems: the buffer placement problem (i.e., where to place buffers) and the functional assignment problem (i.e., what type of functional unit to execute each node). Due to uncertainties within the execution time of nodes, these problems become much more challenging.</p>
+<p style="line-height:18pt; text-indent:2em; text-align:justify;">As the increasing number of applications (ranging from mobile and connected home to security, surveillance and automotive) that combine edge computing and machine learning, implementing neural networks on edge devices become ever more important; however, with limited hardware resources on the edge devices and the restricted timing specification, neural networks that attain state-of-the-art accuracy will not fit. We establish that in order to achieve the highest accuracy and hardware efficiency on the edge, it is best to co-explore hardware design and neural architecture (the above figure), rather than taking state-of-the-art approaches that either explore neural architecture only assuming fixed hardware, or explore hardware design only assuming fixed neural architecture. The proposed co-exploration framework opens up the hardware design freedom, which can significantly push forward the Pareto frontiers between hardware efficiency and test accuracy, and we can obtain much better design trade-offs than the existing approaches. Our contribution can be seen as an analogy to the concept of hardware-software co-design, which has prevailed due to its superior.</p>
 
-<p style="line-height:18pt; text-indent:2em; text-align:justify;">The same nodes in a pipeline may not have fixed execution time due to the following reasons: conditional instructions, ambient temperature, different memory types, etc. The worst-case scenario is widely used to conduct high-level synthesis, in which the overly pessimistic worst-case execution time analysis is employed. In this paper, we study the synthesis of a system in the <b>probabilistic scenario</b> where the execution time is modeled as a random variable. Solutions obtained in the probabilistic scenario can be used for hard real-time systems as well as soft real-time systems with guaranteed confidence probability.</p>
-
-<p style="line-height:18pt; text-indent:2em; text-align:justify;">In various fields, such as multimedia, computer vision and control, pipeline is increasingly popular. A pipeline is composed of stages. Each stage contains all tasks between two consecutive buffers. Its latency is the summation of the execution times of all tasks in it. The throughput of a pipeline is the reciprocal of the maximum latency of all pipeline stages. In the probabilistic scenario, both latencies of stages and the throughput are random variables. It brings difficulties in placing buffers in the system. In particular, designers should decide how and where to optimally place buffers, such that the buffer cost (numbers) can be minimized while satisfying timing constraints with a guaranteed confidence probability.</p>
-
-<p style="line-height:18pt; text-indent:2em; text-align:justify;">Due to the heterogeneity in architectures, a task can be executed by multiple choices of functional units with different execution times and costs. The heterogeneity exponentially expands the design space but provides opportunities to eliminate the costs of unnecessary features. Hence, a critical and difficult problem arises: how to efficiently assign each task to the proper functional unit such that the functional cost can be minimized while satisfying timing constraints with a guaranteed confidence probability.</p>
-
-<p style="line-height:18pt; text-indent:2em; text-align:justify;">In this project, our objective is to find the global optimal solution of functional assignment and buffer placement in the probabilistic scenario, such that the total cost (including functional cost and buffer cost) of the resultant pipeline is minimized while satisfying the required throughput under a required confidence probability. When the required confidence probability is 100%, the obtained solution can be used for hard real-time systems. When the required confidence probability is less than 100%, the resultant pipelines can be applied to soft real-time systems to reduce total cost.</p>
-
-<p style="line-height:18pt; text-indent:2em; font-weight:bold;">The newest results on this project are presented in the TETC paper.</p>
-
-
+<p style="line-height:18pt; text-indent:2em; text-align:justify;">We aim to develop a full-stack tools to support co-exploration of neural architecture and hardware design from (1) optimization of fixed neural network on FPGAs; (2) FPGA-implementation aware NAS; (3) co-explore neural architectures on multiple FPGAs; (4) co-explore neural architecture on network-on-chip-based scalable hardware. </p>
  </div>
 		      <div class="intro" style="font-size:18px; color:darkred; height:40px; margin-left:0px; margin-top: 20px;">Members:</div>
 		      <div class="intro" style="font-size:14px; color:black; line-height: 20px; text-align:justify;">
-		          <p style="margin-left: 2em;">Weiwen Jiang <br /> Hailiang Dong (M.S. @ CQU)<br /> Lei Yang (Ph.D. candidate @ CQU and UCI)</p>
+		          <p style="margin-left: 2em;">Weiwen Jiang<br /> Xinyi Zhang (Ph.D. candidate @ PITT) <br /> Qing Lu (Ph.D. candidate @ ND) <br /> Lei Yang (Postdoc @ GWU)</p>
 		      </div>      
 
 		      
 		      
+		           
+		              
+		               
+		      
+		           
+		              
 		               
 		      
 		               
@@ -349,36 +345,22 @@
 		      
 		               
 		      
+		           
+		              
+		               
+		      
+		               
+		      
+		           
+		              
 		               
 		      
 		               
 		      
 		               
 		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
+		           
+		              
 		               
 		      
 		               
@@ -435,28 +417,6 @@
 		      
 		               
 		      
-		           
-		              
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		           
-		              
 		               
 		      
 		               
@@ -489,8 +449,40 @@
 		      
 		               
 		      
-		           
-		              
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
 		               
 		      
 		               
@@ -503,147 +495,15 @@
 		          
 		               
 		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
 		                              
 		                  <div style="list-style-position:outside; margin-top:10px">
-	1. <font ><b>On the Design of Minimal-Cost Pipeline Systems Satisfying Hard/Soft Real-Time Constraints (<b><a style="color:darkred">BEST PAPER AWARD</a></b>)</font></b><br />
+	1. <font ><b>Achieving Super-Linear Speedup across Multi-FPGA for Real-Time DNN Inference [<a href="https://arxiv.org/abs/1907.08985">arXiv</a>] (<b><a style="color:darkred">BEST PAPER NOMINATION</a></b>)</font></b><br />
 	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, Q. Zhuge, L. Yang, H. Dong and X. Chen <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>IEEE International Conference on Computer Design  (<b>ICCD2017@BOSTON</b>) & IEEE Transactions on Emerging Topics in Computing (<b>TETC</b>), Jan. 2018.</i></div>
+		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, X. Zhang, L. Yang, Q. Zhuge, Y. Shi and J. Hu <br /></div>
+		<div style="margin-left: 12pt; margin-top: 2pt;"><i>International Conference on Hardware/Software Co-design and System Synthesis <b>CODE+ISSS</b>)<br /> also appears at ACM Transactions on Embedded Computing Systems (<b>TECS</b>), NYC, New York, USA, Oct. 2019.</i></div>
 	
 	<!-- 
-		(<b>Acceptance Rate - 75/258=29.07%</b>)
+		(<b></b>)
 	 -->
 </div>
 		                  
@@ -651,188 +511,12 @@
 		          
 		               
 		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
 		                              
 		                  <div style="list-style-position:outside; margin-top:10px">
-	2. <font ><b>Optimal Functional Unit Assignment and Voltage Selection for Pipelined MPSoC with Guaranteed Probability on Time Performance</font></b><br />
+	2. <font ><b>Integrating Memristors and CMOS for Better AI</font></b><br />
 	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, Q. Zhuge, H. Dong and X. Chen <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. Languages, Compilers, and Tools for Embedded Systems (<b>LCTES</b>), Barcelona, Spain, Jun. 2017.</i></div>
-	
-	<!-- 
-		(<b>Acceptance Rate - 13/51=25.49%</b>)
-	 -->
-</div>
-		                  
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		                              
-		                  <div style="list-style-position:outside; margin-top:10px">
-	3. <font ><b>Optimal Functional-Unit Assignment and Buffer Placement for Probabilistic Pipelines</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang </b>, E. H.-M. Sha, Q. Zhuge and X. Chen <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. International Conference on Hardware/Software Co-design and System Synthesis (<b>CODES+ISSS</b>), Pittsburgh, PA, USA, Oct. 2016.</i></div>
-	
-	<!-- 
-		(<b>Acceptance Rate - 21/80=26.25%</b>)
-	 -->
-</div>
-		                  
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		              
-		          
-		               
-		                          
-		                              
-		                  <div style="list-style-position:outside; margin-top:10px">
-	4. <font ><b>On the Design of High-Performance and Energy-Efficient Probabilistic Self-Timed Systems</font></b><br />
-	
-		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b">E. H.-M. Sha,  <b>W. Jiang</b>, Q. Zhuge, L. Yang and X. Chen <br /></div>
-		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. High Performance Computing and Communications (<b>HPCC</b>), NewYork, NY, USA, Aug. 2015.</i></div>
+		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, B. Xie, C-C Liu and Y. Shi, <br /></div>
+		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Nature Electronics (News and Views), Sep. 2019</i></div>
 	
 	<!-- 
 		(<b></b>)
@@ -848,6 +532,334 @@
 		               
 		                          
 		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		                              
+		                  <div style="list-style-position:outside; margin-top:10px">
+	3. <font ><b>When Neural Architecture Search Meets Hardware Implementation<b>:</b> from Hardware Awareness to Co-Design (<b><a>Invited paper</a></b>)</font></b><br />
+	
+		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b">X. Zhang, <b>W. Jiang</b>, Y. Shi and J. Hu, <br /></div>
+		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. IEEE Computer Society Annual Symposium on VLSI (<b>ISVLSI</b>), Miami, Florida, USA, Aug. 2019.</i></div>
+	
+	<!-- 
+		(<b></b>)
+	 -->
+</div>
+		                  
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		                              
+		                  <div style="list-style-position:outside; margin-top:10px">
+	4. <font ><b>On Neural Architecture Search for Resource-Constrained Hardware Platforms (<b><a>Invited paper</a></b>)</font></b><br />
+	
+		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b">Q. Lu, <b>W. Jiang</b>, X. Xiao, J. Hu and Y. Shi, <br /></div>
+		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Proc. IEEE/ACM International Conference On Computer-Aided Design (<b>ICCAD</b>), Westminster, CO, 2019.</i></div>
+	
+	<!-- 
+		(<b></b>)
+	 -->
+</div>
+		                  
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		                              
+		                  <div style="list-style-position:outside; margin-top:10px">
+	5. <font ><b>Accuracy vs. Efficiency<b>:</b> Achieving Both through FPGA-Implementation Aware Neural Architecture Search [<a href="https://arxiv.org/pdf/1901.11211.pdf">arXiv</a>] <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<b><a style="color:darkred">BEST PAPER NOMINATION</a></b>)</font></b><br />
+	
+		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, X. Zhang, E. H.-M. Sha, L. Yang, Q. Zhuge, Y. Shi, and J. Hu <br /></div>
+		<div style="margin-left: 12pt; margin-top: 2pt;"><i>Design Automation Conference (<b>DAC</b>), 2019</i></div>
+	
+	<!-- 
+		(<b></b>)
+	 -->
+</div>
+		                  
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		                              
+		                  <div style="list-style-position:outside; margin-top:10px">
+	6. <font ><b>Heterogeneous FPGA-based Cost-Optimal Design for Timing-Constrained CNNs</font></b><br />
+	
+		<div style="margin-left: 12pt; margin-top: 2pt; color:#00008b"><b>W. Jiang</b>, E. H.-M. Sha, Q. Zhuge, L. Yang, X. Chen, and J. Hu <br /></div>
+		<div style="margin-left: 12pt; margin-top: 2pt;"><i>International Conference on Compilers, Architecture, and Synthesis for Embedded Systems (<b>CASES</b>)<br /> also appear at IEEE Transactions on Transactions on Computer-Aided Design of Integrated Circuits and Systems (<b>TCAD</b>), Torino, Italy, Oct. 2018.</i></div>
+	
+	<!-- 
+		(<b></b>)
+	 -->
+</div>
+		                  
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
+		          
+		               
+		                          
+		              
 		              
 		          
 		      
@@ -859,62 +871,8 @@
 		      
 		               
 		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
-		               
-		      
+		           
+		              
 		               
 		      
 		               
@@ -939,16 +897,66 @@
 		      
 		               
 		      
-		           
-		              
 		               
 		      
 		               
 		      
 		               
 		      
-		           
-		              
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
+		               
+		      
 		               
 		      
 		               
@@ -1024,61 +1032,9 @@
 		                  
 		              
 		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
-		                  
-		              
+		                      <li style="font-weight: bold; font-size:16px; color:darkred; height:40px;">
+		                          <a href="/2019/08/14/news_19_08_14-CODES-BPN/" style="color:darkred;">CODES+ISSS 2019 Nominated as Best Paper Candidate</a>
+		                      </li>
 		                  
 		              
 		                  
@@ -1097,7 +1053,7 @@
 		              
 		                  
 		                      <li style="font-weight: bold; font-size:16px; color:darkred; height:40px;">
-		                          <a href="/2017/11/06/news-17-11-06-ICCD-BP/" style="color:darkred;">ICCD 2017 Best Paper Award</a>
+		                          <a href="/2019/05/01/news_19_06_01-DAC-BPN/" style="color:darkred;">DAC 2019 Nominated as Best Paper Candidate</a>
 		                      </li>
 		                  
 		              
@@ -1106,9 +1062,11 @@
 		                  
 		              
 		                  
-		                      <li style="font-weight: bold; font-size:16px; color:darkred; height:40px;">
-		                          <a href="/2017/10/01/news-17-11-11-SRCICCAD/" style="color:darkred;">Granted by ACM SIGDA and Microsoft to Participate in Student Research Competition (SRC) at ICCAD 2017</a>
-		                      </li>
+		              
+		                  
+		              
+		                  
+		              
 		                  
 		              
 		                  
@@ -1116,9 +1074,53 @@
 		                  
 		              
 		                  
-		                      <li style="font-weight: bold; font-size:16px; color:darkred; height:40px;">
-		                          <a href="/2017/09/11/news_17_09_10_TETC/" style="color:darkred;">Top Panked Paper in ICCD 2017, Invited to Special Issue in IEEE Transactions on Emerging Topics in Computing (TETC)</a>
-		                      </li>
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
+		                  
+		              
 		                  
 		              
 		                  

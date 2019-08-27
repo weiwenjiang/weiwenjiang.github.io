@@ -1,0 +1,4 @@
+  496  cp ../WWhome-ND-Template/public/* . -r
+  497  git add *
+  498  git commit -m "index0822"
+  499  git push -u website master
