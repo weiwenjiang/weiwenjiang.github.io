@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="x769ihcPpzMLLAP03TIykIjylrYsAghgJfwpvP8LZ14" />
+  <meta name="msvalidate.01" content="ECCB0341CC24C59E0D3F85526AB31105" />
+  <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <!-- 
+  <title>Design NN on ZCU102 (4) — Data Pack for Higher Bandwidth | Weiwen Jiang | Home Page</title>
+ -->
+  <title>Weiwen Jiang | Home Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" href="./css/application.css">-->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/application.css">
+  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		tex2jax: {
+		  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+		  processEscapes: true
+		}
+	  });
+  </script>  
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+  
+  <!--<script src="./js/application.js"></script>-->
+</head>
+
+<body style="background: url(/css/images/bg.png) 0 0 repeat; ">
+  <header id="header" role="banner" class="site-header" style="height:138px;  min-width:1200px;">
+      <nav class="brandbar theme-bb-blue container-fluid">
+        <ul class="row">
+          <li class="dept-nd col-lg-6"><a href="https://www.nd.edu/">University of Notre Dame</a></li>
+          <li class="dept dept-current col-lg-5">
+          <a href="http://engineering.nd.edu/" title="College of Engineering" target="_blank">COLLEGE of ENGINEERING</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="titlebar theme-tb-gold container-fluid">
+        <div class="row">
+          <div class="col">
+            <h1 class="site-title"><a href="/" accesskey="H">Weiwen Jiang's Personal Website</a></h1>
+          </div>
+          <div style="float:right; margin-top:30px; margin-right:120px;">
+            <form method="get" action="https://google.com/search" role="search">
+              <input type="search" name="q" placeholder="Search">
+              <button type="submit" style="float:right;"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+  </header>
+    
+  <div id="container" style="background: url(/css/images/bg.png) 0 0 repeat; ">
+    <div id="wrap" style="background: url(/css/images/bg.png) 0 0 repeat; ">
+      <div style="height: 60px; min-width: 1200px;" >
+<div  id="hearder" style=" border-bottom: 2px solid #dcb439;  ">
+  
+
+
+  <div id="header-outer" class="outer" style=" width:1000px; ">
+    <div id="header-inner" class="inner" style="margin-top: 0px;">
+      <nav id="main-nav" style="margin-left: 0;">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+            
+              <a class="main-nav-link" href="/" style="color: #000; font-weight: bold; background-color: #EFDB92;">Home</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/paper" style="color: #000; ">Publication</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/research" style="color: #000; ">Research</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/teaching" style="color: #000; ">Teaching</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/service" style="color: #000; ">Service</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/awards" style="color: #000; ">Awards</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/blog" style="color: #000; ">Blog</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/bio" style="color: #000; ">Bio</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/QF" style="color: #000; ">QuantumFlow</a>
+            
+        
+      </nav>                  
+	  <!--<div style="float:right">
+        <img src="/css/images/pitt_logo2.png" alt="pitt_log" height="48px" style="margin-top: 5px;">
+	  </div>-->
+    </div>
+  </div>     
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+      <div class="outer" style="clear:both; width:1000px; min-height: 500px; margin-top:10px; padding-top:20px; padding-left:0px; padding-right:0px; padding-bottom: 30px; background: url(/css/images/bg.png) 0 0 repeat; ">
+        <div>
+    <article id="post-blog_2018-08-02-DataPack" class="article article-type-post" itemscope itemprop="blogPost">      
+      <div class="article-inner" style="margin-top: -10px">
+        
+        
+          <b><header class="article-header" style="font-size:24pt;">
+            
+      
+      Design NN on ZCU102 (4) — Data Pack for Higher Bandwidth    
+  
+
+          </header></b>
+        
+        <div class="article-entry" itemprop="articleBody">
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">struct DATA_TRANS&#123;</div><div class="line">	float d1;</div><div class="line">	float d2;</div><div class="line">	float d3;</div><div class="line">	float d4;</div><div class="line">&#125;;// 4B*4=16Bytes</div><div class="line"></div><div class="line">struct DMA_DATA&#123;</div><div class="line">	DATA_TRANS data;</div><div class="line">	bool last;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line">void datapack(hls::stream&lt;DMA_DATA&gt; &amp;in_stream, hls::stream&lt;DMA_DATA&gt; &amp;out_stream, int op)&#123;</div><div class="line">#pragma HLS INTERFACE s_axilite port=return bundle=CRTL_BUS</div><div class="line">#pragma HLS INTERFACE s_axilite port=op bundle=CRTL_BUS</div><div class="line">#pragma HLS INTERFACE axis port=in_stream</div><div class="line">#pragma HLS INTERFACE axis port=out_stream</div><div class="line"></div><div class="line">	DATA_TRANS A[512];</div><div class="line">#pragma HLS RESOURCE variable=A core=RAM_1P_BRAM</div><div class="line">#pragma HLS DATA_PACK variable=A field_level</div><div class="line">//#pragma HLS ARRAY_PARTITION variable=A complete dim=1</div><div class="line">	DATA_TRANS B[512];</div><div class="line">#pragma HLS RESOURCE variable=B core=RAM_1P_BRAM</div><div class="line">#pragma HLS DATA_PACK variable=B field_level</div><div class="line">//#pragma HLS ARRAY_PARTITION variable=B complete dim=1</div><div class="line">	DMA_DATA input;</div><div class="line">	DMA_DATA output;</div><div class="line"></div><div class="line"></div><div class="line">	if(op==0)&#123;</div><div class="line">		L1:for(int i=0;i&lt;512;i++)&#123;</div><div class="line">#pragma HLS pipeline II=1</div><div class="line">			input = in_stream.read();</div><div class="line">			A[i] = input.data;</div><div class="line">		&#125;</div><div class="line">	&#125;else if(op==1)&#123;</div><div class="line">		L2:for(int i=0;i&lt;512;i++)&#123;</div><div class="line">#pragma HLS pipeline II=1</div><div class="line">			B[i].d1 = A[i].d1+0.54;</div><div class="line">			B[i].d2 = A[i].d2+0.37;</div><div class="line">			B[i].d3 = A[i].d4+A[i].d3+0.28;</div><div class="line">			B[i].d4 = 0.19;</div><div class="line">		&#125;</div><div class="line">	&#125;else if(op==2)&#123;</div><div class="line">		L3:for(int i=0;i&lt;512;i++)&#123;</div><div class="line">#pragma HLS pipeline II=1</div><div class="line">			output.last=0;</div><div class="line">			if(i==511)&#123;</div><div class="line">				output.last=1;</div><div class="line">			&#125;else if(i==0)&#123;</div><div class="line">				output.data.d1 = 1.2;</div><div class="line">				output.data.d2 = 42.2;</div><div class="line">				output.data.d3 = 23.2;</div><div class="line">				output.data.d4 = 15.2;</div><div class="line">			&#125;else&#123;</div><div class="line">				output.data = B[i];</div><div class="line">			&#125;</div><div class="line">			out_stream.write(output);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The size of data transmission at each time is: 512*16B=8KB.</p>
+<p>###Bandwidth from PL to PS<br>First, we test the bandwidth from PL to PS.<br>The SDK code is shown as follows.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">timer.startTimer();</div><div class="line">	for(int i=0;i&lt;131072;i++)&#123;</div><div class="line">		XDatapack_Set_op(&amp;do_datapack,2);</div><div class="line">		XDatapack_Start(&amp;do_datapack);</div><div class="line">//		Xil_DCacheFlushRange((INTPTR)start_addr_wr,trans_len_wr*sizeof(DATA_TRANS));</div><div class="line">		XAxiDma_SimpleTransfer(&amp;do_axi_dma,(INTPTR)start_addr_wr,trans_len_wr*sizeof(DATA_TRANS),XAXIDMA_DEVICE_TO_DMA);</div><div class="line">		while(XAxiDma_Busy(&amp;do_axi_dma,XAXIDMA_DEVICE_TO_DMA));</div><div class="line">		while(!XDatapack_IsDone(&amp;do_datapack));</div><div class="line"></div><div class="line">//		Xil_DCacheInvalidateRange((INTPTR)start_addr_wr,trans_len_wr*sizeof(DATA_TRANS));</div><div class="line">	&#125;</div><div class="line">	timer.stopTimer();</div><div class="line">	timeInterval = timer.getElapsedTimerInSeconds();</div><div class="line">	printf(&quot;Receiving weights using ticks %f\n&quot;,timeInterval);</div></pre></td></tr></table></figure>
+<p>In the test, we launch 131072 times of data transmission from PL to PS.<br>The total size is 8KB*131072=1GB.<br>Note that we do not consider cache flush and invalidate.<br>The result is shown as follows.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Start: 0</div><div class="line">End: 144113621</div><div class="line">Receiving weights using ticks 1.441280</div></pre></td></tr></table></figure>
+<p>Based on the above information, we can see that the bandwidth is 1GB/1.441280 = <strong>710.48MB/s</strong>.</p>
+<p>###Bandwidth from PS to PL<br>Next, we test the bandwidth from PL to PS. The SDK code is shown as follows.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">timer.startTimer();</div><div class="line">	for(int i=0;i&lt;131072;i++)&#123;</div><div class="line">		XDatapack_Set_op(&amp;do_datapack,0);</div><div class="line">		XDatapack_Start(&amp;do_datapack);</div><div class="line"></div><div class="line">//		Xil_DCacheFlushRange((INTPTR)start_addr_in,trans_len_in*sizeof(DATA_TRANS));</div><div class="line">		XAxiDma_SimpleTransfer(&amp;do_axi_dma,(INTPTR)start_addr_in,trans_len_in*sizeof(DATA_TRANS),XAXIDMA_DMA_TO_DEVICE);</div><div class="line">		while(XAxiDma_Busy(&amp;do_axi_dma,XAXIDMA_DMA_TO_DEVICE));</div><div class="line">		while(!XDatapack_IsDone(&amp;do_datapack));</div><div class="line">	&#125;</div><div class="line">	timer.stopTimer();</div><div class="line">	timeInterval = timer.getElapsedTimerInSeconds();</div><div class="line">	printf(&quot;Receiving weights using ticks %f\n&quot;,timeInterval);</div></pre></td></tr></table></figure>
+<p>The result is shown as follows.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Start: 0</div><div class="line">End: 106654906</div><div class="line">Receiving weights using ticks 1.066656</div></pre></td></tr></table></figure>
+<p>Then, we can calculate the bandwidth is 1GB/1.066656=<strong>960.01MB/s</strong>.<br>Note that if we add cache flush in the loop, the elapsed time will be increased to 1.777953 seconds.<br>That is, the bandwidth is 1GB/1.777953=<strong>575.94MB/s</strong>.</p>
+
+          
+        </div>
+        <footer class="article-footer">
+          <a data-url="https://wjiang.nd.edu/2018/08/02/blog_2018-08-02-DataPack/" data-id="ckdgp2kkb000gc4uo1tshp4or" class="article-share-link">Share</a>
+          
+          
+        </footer>
+      </div>
+      <!-- 
+        
+<nav id="article-nav">
+  
+    <a href="/2018/08/17/bio_18-08-17/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Weiwen Jiang
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/01/blog_2018-08-01-DoubleBufferDesign/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Design NN on ZCU102 (3) — Double Buffer Design</div>
+    </a>
+  
+</nav>
+
+       -->
+    </article>
+
+           
+
+
+
+</div>        
+      
+      <div style="clear:both;">
+        <div>
+        <br /><a href='https://clustrmaps.com/site/1a9dt'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=a1b7dd&w=200&t=tt&d=y7uhNSQnn7BwOiSgdjrJlsl50phjgSmRvL7A-puzXmA&co=f1f1f1&ct=a1b7dd' style="margin-top:20px;" /></a><br /></div>
+      </div>
+
+      </div> 
+
+      <!--<footer id="footer" style="background: #A9A9A9; color: black; min-width:1200px;">
+  
+  <div class="outer" style="color:#000">
+    <div id="footer-info" class="inner">	  	  	  
+	  <div style="float:left">
+	  Total pageviews: <a href="http://www.amazingcounters.com"><img border="0" src="http://cc.amazingcounters.com/counter.php?i=3223307&c=9670234" alt="AmazingCounters.com"></a><br />
+      Last modified: Feb. 2019. <br />
+      &copy; 2020 Weiwen Jiang<br>	  
+	  </div>
+	  <div style="float:right"><a href="https://clustrmaps.com/site/1a9dt" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=a1b7dd&w=a&t=tt&d=y7uhNSQnn7BwOiSgdjrJlsl50phjgSmRvL7A-puzXmA&co=f1f1f1&ct=a1b7dd" /></a><br /></div>
+    </div>	
+  </div>
+</footer>-->
+
+
+  
+
+
+<div class="wrapper container-fluid" style="clear:both; min-width:1200px">
+      <div class="row">
+      <footer id="footer" class="site-footer col-12" role="contentinfo" style="margin-bottom: 2em; padding-left: 2em; padding-right: 2em; padding-bottom: 2em;">
+          <div class="footer-inner">
+            <div class="vcard">
+              <p class="copyright fn org">
+                <a href="https://www.nd.edu/copyright/">Copyright</a> &copy; 2019
+                <a href="https://www.nd.edu/" class="org">University of Notre Dame</a>
+              </p>
+              <p class="contact-info url adr">
+                <a href="/" class="site-link url fn">Weiwen Jiang's Personal Website</a>
+                <span class="address"><span class="street-address">254 Fitzpatrick Hall of Engineering</span>, <span class="locality">Notre Dame</span>, <span class="region" title="Indiana">IN</span> <span class="postal-code">46556</span></span>
+                <span class="tel phone"><span class="type">Phone</span> (412)427-0695</span>
+                <span class="email"><a href="mailto:wjiang2@nd.edu">wjiang2@nd.edu</a></span>
+              </p>
+              <a href="https://www.nd.edu/" class="ndmark"><img src="https://static.nd.edu/images/marks/blue/ndmark300.png" alt="University of Notre Dame"></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+
+
+    </div> 
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link" style="color:white">Home</a>
+  
+    <a href="/categories/paper" class="mobile-nav-link" style="color:white">Publication</a>
+  
+    <a href="/categories/research" class="mobile-nav-link" style="color:white">Research</a>
+  
+    <a href="/categories/teaching" class="mobile-nav-link" style="color:white">Teaching</a>
+  
+    <a href="/categories/service" class="mobile-nav-link" style="color:white">Service</a>
+  
+    <a href="/categories/awards" class="mobile-nav-link" style="color:white">Awards</a>
+  
+    <a href="/categories/blog" class="mobile-nav-link" style="color:white">Blog</a>
+  
+    <a href="/categories/bio" class="mobile-nav-link" style="color:white">Bio</a>
+  
+    <a href="/categories/QF" class="mobile-nav-link" style="color:white">QuantumFlow</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+    
+   
+
+  </div>  
+
+  
+</body>
+</html>
