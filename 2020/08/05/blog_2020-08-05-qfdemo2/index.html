@@ -181,7 +181,7 @@
 </tr>
 </tbody>
 </table>
-<p>For the approach in Demo(1), in worst case, M qbits will need 2^M = N gates, which is O(N). In classical computer, the number of cycles is also O(N). Therefore, no quantum advantages are achieved. (<a href="https://wjiang.nd.edu/QF_Demon2_motivation.html">quirk example for 4 qbits with 15 (C^4)Z gates</a>.</p>
+<p>For the approach in Demo(1), in worst case, M qbits will need 2^M/2 = N/2 gates (see <a href="https://wjiang.nd.edu/QF_Demon2_motivation.html">quirk example for 4 qbits with 15 (C^4)Z gates</a> and the cost/time complexity of each gate is O(K), where K=M. So, the total time complexity is O(N<em>M)=O(N</em>logN). In classical computer, the number of cycles is also O(N). Therefore, no quantum advantages are achieved at all. </p>
 <h3 id="How-to-achieve-quantum-advantage-for-Machine-Learning"><a href="#How-to-achieve-quantum-advantage-for-Machine-Learning" class="headerlink" title="How to achieve quantum advantage for Machine Learning?"></a>How to achieve quantum advantage for Machine Learning?</h3><p>The answer is reduce/decompose (C^P)Z gates.</p>
 <h4 id="Basic-Knowledge"><a href="#Basic-Knowledge" class="headerlink" title="Basic Knowledge"></a>Basic Knowledge</h4><p>The circuit is to encode the weights to make sure the sign of each amplitude is exactly the same with the weights. </p>
 <p>Let’s go back to see the amplitude in Demo(1) as follows. </p>
@@ -315,7 +315,7 @@ Neural 1:
 <nav id="article-nav">
   
     <a href="/2222/06/01/paper_NatureComm/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
           Can Quantum Computers Learn Like Classical Computers? A Co-Design Framework for Machine Learning and Quantum Circuits
@@ -325,7 +325,7 @@ Neural 1:
   
   
     <a href="/2020/08/04/blog_2020-08-04-QFDemo1/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">QuantumFlow Demo (1) --- Classify 3 and 6 in MNIST</div>
     </a>
   
