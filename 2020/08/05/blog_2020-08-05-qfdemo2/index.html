@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="x769ihcPpzMLLAP03TIykIjylrYsAghgJfwpvP8LZ14" />
+  <meta name="msvalidate.01" content="ECCB0341CC24C59E0D3F85526AB31105" />
+  <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <!-- 
+  <title>QuantumFlow Demo (2) --- Build QF-Circ from Weights | Weiwen Jiang | Home Page</title>
+ -->
+  <title>Weiwen Jiang | Home Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" href="./css/application.css">-->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/application.css">
+  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		tex2jax: {
+		  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+		  processEscapes: true
+		}
+	  });
+  </script>  
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+  
+  <!--<script src="./js/application.js"></script>-->
+</head>
+
+<body style="background: url(/css/images/bg.png) 0 0 repeat; ">
+  <header id="header" role="banner" class="site-header" style="height:138px;  min-width:1200px;">
+      <nav class="brandbar theme-bb-blue container-fluid">
+        <ul class="row">
+          <li class="dept-nd col-lg-6"><a href="https://www.nd.edu/">University of Notre Dame</a></li>
+          <li class="dept dept-current col-lg-5">
+          <a href="http://engineering.nd.edu/" title="College of Engineering" target="_blank">COLLEGE of ENGINEERING</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="titlebar theme-tb-gold container-fluid">
+        <div class="row">
+          <div class="col">
+            <h1 class="site-title"><a href="/" accesskey="H">Weiwen Jiang's Personal Website</a></h1>
+          </div>
+          <div style="float:right; margin-top:30px; margin-right:120px;">
+            <form method="get" action="https://google.com/search" role="search">
+              <input type="search" name="q" placeholder="Search">
+              <button type="submit" style="float:right;"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+  </header>
+    
+  <div id="container" style="background: url(/css/images/bg.png) 0 0 repeat; ">
+    <div id="wrap" style="background: url(/css/images/bg.png) 0 0 repeat; ">
+      <div style="height: 60px; min-width: 1200px;" >
+<div  id="hearder" style=" border-bottom: 2px solid #dcb439;  ">
+  
+
+
+  <div id="header-outer" class="outer" style=" width:1000px; ">
+    <div id="header-inner" class="inner" style="margin-top: 0px;">
+      <nav id="main-nav" style="margin-left: 0;">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+            
+              <a class="main-nav-link" href="/" style="color: #000; font-weight: bold; background-color: #EFDB92;">Home</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/paper" style="color: #000; ">Publication</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/research" style="color: #000; ">Research</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/teaching" style="color: #000; ">Teaching</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/service" style="color: #000; ">Service</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/awards" style="color: #000; ">Awards</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/blog" style="color: #000; ">Blog</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/bio" style="color: #000; ">Bio</a>
+            
+        
+            
+              <a class="main-nav-link" href="/categories/QF" style="color: #000; ">QuantumFlow</a>
+            
+        
+      </nav>                  
+	  <!--<div style="float:right">
+        <img src="/css/images/pitt_logo2.png" alt="pitt_log" height="48px" style="margin-top: 5px;">
+	  </div>-->
+    </div>
+  </div>     
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+      <div class="outer" style="clear:both; width:1000px; min-height: 500px; margin-top:10px; padding-top:20px; padding-left:0px; padding-right:0px; padding-bottom: 30px; background: url(/css/images/bg.png) 0 0 repeat; ">
+        <div>
+    <article id="post-blog_2020-08-05-qfdemo2" class="article article-type-post" itemscope itemprop="blogPost">      
+      <div class="article-inner" style="margin-top: -10px">
+        
+        
+          <b><header class="article-header" style="font-size:24pt;">
+            
+      
+      QuantumFlow Demo (2) --- Build QF-Circ from Weights    
+  
+
+          </header></b>
+        
+        <div class="article-entry" itemprop="articleBody">
+          
+            <h1 id="Aim-Achieving-Quantum-Advantage"><a href="#Aim-Achieving-Quantum-Advantage" class="headerlink" title="Aim: Achieving Quantum Advantage"></a>Aim: Achieving Quantum Advantage</h1><h2 id="Why-quantum-advantage-is-not-achieved-in-Demo-1"><a href="#Why-quantum-advantage-is-not-achieved-in-Demo-1" class="headerlink" title="Why quantum advantage is not achieved in Demo(1)"></a>Why quantum advantage is not achieved in Demo(1)</h2><p><img src="/2020/08/05/blog_2020-08-05-qfdemo2/quitk_demo1_problem.jpg" width="300" alt="Neural Computation with Exponential Increasing Gates"></p>
+<p>Let’s focus on one neural computation. In Demo(1), the weights are directly encoded to quantum circuit. Assume there are N input neurons, corresponding to M=logN qbits, where N=16, M=4 in Demo(1). Demo(1) use (C^P)Z gate, P=M-1, for encoding weights. We can convert (C^P)Z gate to basic gates (e.g., X, CX, CCX) that can be completed in 1 cycle. The Gates and latency/cost related to M is listed as follow.</p>
+<table>
+<thead>
+<tr>
+<th>P</th>
+<th>Gate</th>
+<th>Lat/Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Z</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>CZ</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CCX+CZ+CCX</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2<em>CCX+CZ+2</em>CCX</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3 <em>CCX+CZ+3</em> CCX</td>
+<td>7</td>
+</tr>
+<tr>
+<td>K</td>
+<td>…</td>
+<td>2*K-1</td>
+</tr>
+<tr>
+<td>K</td>
+<td>…</td>
+<td>O(K)</td>
+</tr>
+</tbody>
+</table>
+<p>For the approach in Demo(1), in worst case, M qbits will need 2^M/2 = N/2 gates (see <a href="https://wjiang.nd.edu/QF_Demon2_motivation.html">quirk example for 4 qbits with 15 (C^4)Z gates</a> and the cost/time complexity of each gate is O(K), where K=M. So, the total time complexity is O(N<em>M)=O(N</em>logN). In classical computer, the number of cycles is also O(N). Therefore, no quantum advantages are achieved at all. </p>
+<h3 id="How-to-achieve-quantum-advantage-for-Machine-Learning"><a href="#How-to-achieve-quantum-advantage-for-Machine-Learning" class="headerlink" title="How to achieve quantum advantage for Machine Learning?"></a>How to achieve quantum advantage for Machine Learning?</h3><p>The answer is to reduce/decompose (C^P)Z gates.</p>
+<h4 id="Basic-Knowledge"><a href="#Basic-Knowledge" class="headerlink" title="Basic Knowledge"></a>Basic Knowledge</h4><p>The circuit is to encode the weights to make sure the sign of each amplitude is exactly the same with the weights. </p>
+<p>Let’s go back to see the amplitude in Demo(1) as follows. </p>
+<pre>
+Neural 1:
+[1.,  1.,  1.,  1.,  1.,  1.,  1., -1.,  1., -1.,  1., -1.,  1.,  1.,    1.,  1.]
+</pre>
+
+<p>Let’s show the operations to be conducted in quantum circuit as follow.</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th></th>
+<th></th>
+<th></th>
+<th>weight</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0000</td>
+<td>A0001</td>
+<td>A0010</td>
+<td>A0011</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>A0100</td>
+<td>A0101</td>
+<td>A0110</td>
+<td>A0111</td>
+<td>*</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>A1000</td>
+<td>A1001</td>
+<td>A1010</td>
+<td>A1011</td>
+<td></td>
+<td>1</td>
+<td>-1</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>A1100</td>
+<td>A1101</td>
+<td>A1110</td>
+<td>A1111</td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>How can we do sign flip? (I just list the intuition here, fundamentals are matrix multiplication)</p>
+<p>For example, the weight corresponding to A1001 is -1. To make its sign flip, we need a (C)(NC)(NC)Z gate. The basic ides is that for 1, it corresponds to Z or C (dots), and for 0, it corresponds to NC/NZ (circles).</p>
+<p>If we only apply a Z gate on the last qbit, all related amplitude will be flipped, including A0001, A0011, A0101, A0111, A1001, A1011, A1101, A1111.</p>
+<p>The trick we can take is that we can continuously flip different bits and make sure the final sign of each amplitude are exactly the same with that in weights.</p>
+<h4 id="What-can-we-do-for-ML-models"><a href="#What-can-we-do-for-ML-models" class="headerlink" title="What can we do for ML models?"></a>What can we do for ML models?</h4><p>The property that we use is that the inputs can be reordered, and in turn, the weight can be reordered. </p>
+<p><strong>Therefore, we do not need to care about the position of negative number in weights, but we do care about how many weights are -1, denoted as TN.</strong></p>
+<p>Let’s use notation “ZZIIZ” to represent that we place a CCZ gate on qbits 0,1,4, and all amplitude corresponding to 11XX1 will flip sign. We figure out the following table to show how many amplitudes are associate with one type of<br>gate. (using 4 qbits system as an example)</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Amplitude (A)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IIIZ</td>
+<td>8</td>
+</tr>
+<tr>
+<td>IIZZ</td>
+<td>4</td>
+</tr>
+<tr>
+<td>IZZZ</td>
+<td>2</td>
+</tr>
+<tr>
+<td>ZZZZ</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>There are 16 amplitude in total. However, as we know, the quantum has symmetric property. Therefore, we only need to cover sign flip of 8 amplitude. We observe that we can use the gates listed in the table to achieve any number (&lt;=8) of sign flip.</p>
+<h6 id="Case-1-TN-8-4-2-or-1"><a href="#Case-1-TN-8-4-2-or-1" class="headerlink" title="Case 1: TN = 8, 4, 2, or 1"></a>Case 1: TN = 8, 4, 2, or 1</h6><p>In this case, we directly apply the corresponding gates.</p>
+<h6 id="Case-2-TN-8-4-2-or-1"><a href="#Case-2-TN-8-4-2-or-1" class="headerlink" title="Case 2: TN != 8, 4, 2, or 1"></a>Case 2: TN != 8, 4, 2, or 1</h6><p>If we apply the above gate set in sequence, it has a property:<br><strong>for the odd time, we will add A negative sign, for even time, we will remove A negative sign.</strong></p>
+<p>E.G., TN=5</p>
+<p>It indicates that we need 5 negative sign; following the above property, we can have 8-4+1 = 5. We have a algorithm to help identify the order to gates used to achieve any number of negtaive signs. Details please see our paper.</p>
+<h4 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis."></a>Analysis.</h4><p>The above algorihtm indicates that for M qbits, we will involve M gates at most. According to the first table in this Demo, the cost is 1+1+3+5+…+[2(M-1)-1]=1+[1+3+5+7+…+(2M-1)]-(2M-1)=M^2-2*M+2=O(M^2).</p>
+<p>We know that the classical computer needs O(N)=O(2^M) adder/multiplier, but we only need O(M^2) quantum basic gates. Therefore, we achieve the quantum advantage.</p>
+<h1 id="QuantumFlow-Results"><a href="#QuantumFlow-Results" class="headerlink" title="QuantumFlow Results"></a>QuantumFlow Results</h1><h2 id="QF-Map"><a href="#QF-Map" class="headerlink" title="QF-Map"></a>QF-Map</h2><p>The algorithm to generate quantum circuit is implemented in QF-Map. The optimized quantum circuit is shown as follows, which has the same function as Demo(1), except the order of the inputs need to be changed.</p>
+<p>We made examples in quirk, which can be accessed using the following links:</p>
+<p><img src="/2020/08/05/blog_2020-08-05-qfdemo2/quirk6_demo1.jpg" width="1000" alt="Non-Optimized Circuit"></p>
+<p><a href="https://wjiang.nd.edu/QF_Demon2_ori36.html">Original Circuit in Demo(1)</a></p>
+<p><img src="/2020/08/05/blog_2020-08-05-qfdemo2/quirk6_opt.jpg" width="1000" alt="Optimized Circuit"></p>
+<p><a href="https://wjiang.nd.edu/QF_Demon2_opt36.html">Optimized Circuit with the Same Results</a></p>
+<p>Codes will be released to github soon.</p>
+<p><br></p>
+<p><div align="right"><br>Aug. 05, 2020<br><b>Weiwen Jiang</b><br><a href="mailto:wjiang2@nd.edu" target="_blank" rel="external">wjiang2@nd.edu</a><br></div><br><br></p>
+
+          
+        </div>
+        <footer class="article-footer">
+          <a data-url="https://wjiang.nd.edu/2020/08/05/blog_2020-08-05-qfdemo2/" data-id="ckdmje96h00017wuo7c8ywrax" class="article-share-link">Share</a>
+          
+          
+        </footer>
+      </div>
+      <!-- 
+        
+<nav id="article-nav">
+  
+    <a href="/2020/08/15/news_20_08_15-NSFCOVID/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/04/blog_2020-08-04-QFDemo1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">QuantumFlow Demo (1) --- Classify 3 and 6 in MNIST</div>
+    </a>
+  
+</nav>
+
+       -->
+    </article>
+
+           
+
+
+
+</div>        
+      
+      <div style="clear:both;">
+        <div>
+        <br /><a href='https://clustrmaps.com/site/1a9dt'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=a1b7dd&w=200&t=tt&d=y7uhNSQnn7BwOiSgdjrJlsl50phjgSmRvL7A-puzXmA&co=f1f1f1&ct=a1b7dd' style="margin-top:20px;" /></a><br /></div>
+      </div>
+
+      </div> 
+
+      <!--<footer id="footer" style="background: #A9A9A9; color: black; min-width:1200px;">
+  
+  <div class="outer" style="color:#000">
+    <div id="footer-info" class="inner">	  	  	  
+	  <div style="float:left">
+	  Total pageviews: <a href="http://www.amazingcounters.com"><img border="0" src="http://cc.amazingcounters.com/counter.php?i=3223307&c=9670234" alt="AmazingCounters.com"></a><br />
+      Last modified: Feb. 2019. <br />
+      &copy; 2020 Weiwen Jiang<br>	  
+	  </div>
+	  <div style="float:right"><a href="https://clustrmaps.com/site/1a9dt" title="Visit tracker"><img src="//clustrmaps.com/map_v2.png?cl=a1b7dd&w=a&t=tt&d=y7uhNSQnn7BwOiSgdjrJlsl50phjgSmRvL7A-puzXmA&co=f1f1f1&ct=a1b7dd" /></a><br /></div>
+    </div>	
+  </div>
+</footer>-->
+
+
+  
+
+
+<div class="wrapper container-fluid" style="clear:both; min-width:1200px">
+      <div class="row">
+      <footer id="footer" class="site-footer col-12" role="contentinfo" style="margin-bottom: 2em; padding-left: 2em; padding-right: 2em; padding-bottom: 2em;">
+          <div class="footer-inner">
+            <div class="vcard">
+              <p class="copyright fn org">
+                <a href="https://www.nd.edu/copyright/">Copyright</a> &copy; 2019
+                <a href="https://www.nd.edu/" class="org">University of Notre Dame</a>
+              </p>
+              <p class="contact-info url adr">
+                <a href="/" class="site-link url fn">Weiwen Jiang's Personal Website</a>
+                <span class="address"><span class="street-address">254 Fitzpatrick Hall of Engineering</span>, <span class="locality">Notre Dame</span>, <span class="region" title="Indiana">IN</span> <span class="postal-code">46556</span></span>
+                <span class="tel phone"><span class="type">Phone</span> (412)427-0695</span>
+                <span class="email"><a href="mailto:wjiang2@nd.edu">wjiang2@nd.edu</a></span>
+              </p>
+              <a href="https://www.nd.edu/" class="ndmark"><img src="https://static.nd.edu/images/marks/blue/ndmark300.png" alt="University of Notre Dame"></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+
+
+    </div> 
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link" style="color:white">Home</a>
+  
+    <a href="/categories/paper" class="mobile-nav-link" style="color:white">Publication</a>
+  
+    <a href="/categories/research" class="mobile-nav-link" style="color:white">Research</a>
+  
+    <a href="/categories/teaching" class="mobile-nav-link" style="color:white">Teaching</a>
+  
+    <a href="/categories/service" class="mobile-nav-link" style="color:white">Service</a>
+  
+    <a href="/categories/awards" class="mobile-nav-link" style="color:white">Awards</a>
+  
+    <a href="/categories/blog" class="mobile-nav-link" style="color:white">Blog</a>
+  
+    <a href="/categories/bio" class="mobile-nav-link" style="color:white">Bio</a>
+  
+    <a href="/categories/QF" class="mobile-nav-link" style="color:white">QuantumFlow</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+    
+   
+
+  </div>  
+
+  
+</body>
+</html>
